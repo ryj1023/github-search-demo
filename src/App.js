@@ -17,7 +17,6 @@ export default function App() {
       console.log("err", err);
     }
   };
-  console.log("gitHubUsers", gitHubUsers);
   const hasUsers = gitHubUsers && gitHubUsers.items;
   return (
     <div className="App container">
@@ -29,11 +28,10 @@ export default function App() {
             style={{ minWidth: "300px" }}
             className="mb-2"
             onChange={async (e) => {
-              // await getGitHubUserData(
-              //   `https://api.github.com/search/users?q=${e.target.value}&per_page=10&page=1`,
-              //   setGitHubUsers
-              // )
-              await getGitHubUserData(`users.json`, setGitHubUsers);
+              await getGitHubUserData(
+                `https://api.github.com/search/users?q=${e.target.value}&per_page=10&page=1`,
+                setGitHubUsers
+              );
             }}
             placeholder={"Seach by name, email, or username"}
           />
@@ -64,7 +62,11 @@ export default function App() {
                 /*style={{ width: "18rem" }}*/
               >
                 <div className="card p-3">
-                  <img className="w-100 h-100" src={user.avatar_url} />
+                  <img
+                    className="w-100 h-100"
+                    alt="user"
+                    src={user.avatar_url}
+                  />
                   <div className="card-body">
                     <h5 className="card-title">{user.login}</h5>
                   </div>
@@ -93,11 +95,10 @@ export default function App() {
                       className="btn btn-primary"
                       onClick={async (e) => {
                         setOpen(true);
-                        // await getGitHubUserData(
-                        //   `https://api.github.com/users/${user.login}`,
-                        //   setSelectedUser
-                        // );
-                        await getGitHubUserData(`user.json`, setSelectedUser);
+                        await getGitHubUserData(
+                          `https://api.github.com/users/${user.login}`,
+                          setSelectedUser
+                        );
                       }}
                     >
                       More info
